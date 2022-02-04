@@ -1,12 +1,15 @@
-/* *******************************************************************
-cell-specific approach
-******************************************************************* */
+/* ****************************************************************************
+cell-specific approach (Kuehn et al., 2019), the orgignal code is edit by Nico.
+
+Modifications:
+(1) For the French dataset, the cell size of RC is  0.2 times 0.2 degrees.
+*******************************************************************************/
   
   data {
-    int<lower=1> N;      // the number of record
-    int<lower=1> NCELL;  // the number of Cell
-    int<lower=1> NEQ;    // the number of EQ 
-    int<lower=1> NSTAT;  // the number of ST
+    int<lower=1> N;      
+    int<lower=1> NCELL;  
+    int<lower=1> NEQ;    
+    int<lower=1> NSTAT;  
     
     vector[N] Y;
     vector[N] mu;
@@ -21,12 +24,12 @@ parameters {
   real<lower=0> sigma_rec;
   real<lower=0> sigma_eq;
   real<lower=0> sigma_stat;
-  real<lower=0> sigma_cA;   // std of cell-specific attenuation
+  real<lower=0> sigma_cA;  
   //mean value
-  real <upper=0> mu_cA;       // global (mean) attenuation
+  real <upper=0> mu_cA; 
   real intercept;
   //coeff
-  vector<upper=0>[NCELL] c_Ac; // cell-specific attenuation
+  vector<upper=0>[NCELL] c_Ac; 
   //residual
   vector[NEQ] eqterm;
   vector[NSTAT] statterm;
@@ -39,8 +42,8 @@ model {
   sigma_rec ~ cauchy(0,0.5);
   sigma_cA ~ cauchy(0,0.01);
   // anelastic attenuation
-  mu_cA ~ normal(0,0.01);  // prior for global attenuation parameter
-  c_Ac ~ normal(mu_cA,sigma_cA);  // prior for regional attenuation
+  mu_cA ~ normal(0,0.01);  
+  c_Ac ~ normal(mu_cA,sigma_cA);  
   
   //residuals 
   sigma_eq ~ cauchy(0.,0.5);

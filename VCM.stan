@@ -1,19 +1,17 @@
-/*********************************************
-This model explicitly estimates the latent (uncorrelated) event terms and station terms
-The model does not includes cell-specific attenuation
- ********************************************/
+/******************************************************************************************
+The model does not includes cell-specific attenuation,  the orgignal code is edit by Nico.
+********************************************************************************************/
 
 data {
-  int N;  // number of records
-  int NEQ;  // number of earthquakes
-  int NSTAT;  // number of stations
-  vector[N] Y; // residual
-  //vector[N] mu_rec; 
-  int<lower=1,upper=NEQ> eq[N]; // event id (in numerical order from 1 to last)
-  int<lower=1,upper=NSTAT> stat[N]; // station id (in numerical order from 1 to last)
-  vector[2] X_e[NEQ];  // event coordinate for each record
-  vector[2] X_s[NSTAT];  // station coordinate for each record
-  vector[NSTAT] lnVS;  //lnVs30
+  int N;  
+  int NEQ;  
+  int NSTAT;  
+  vector[N] Y;
+  int<lower=1,upper=NEQ> eq[N]; 
+  int<lower=1,upper=NSTAT> stat[N]; 
+  vector[2] X_e[NEQ];  
+  vector[2] X_s[NSTAT]; 
+  vector[NSTAT] lnVS; 
 
 }
 
@@ -23,9 +21,9 @@ transformed data {
 
 parameters {
   //real b1;
-  real<lower=0> phi_0;  // phi_0 
-  real<lower=0> tau_0;  // tau_0 
-  real<lower=0> phi_S2S;  // phi_s2s 
+  real<lower=0> phi_0;  
+  real<lower=0> tau_0;  
+  real<lower=0> phi_S2S;   
 
   real intercept;
   real <lower=0>rho_eq;
